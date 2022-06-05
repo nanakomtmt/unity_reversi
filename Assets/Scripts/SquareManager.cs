@@ -39,7 +39,10 @@ public class SquareManager : MonoBehaviour
 
     public void ResetBoard()
     {
-        
+        foreach (var square in _squares)
+        {
+            square.ResetBoard();
+        }
     }
 
     public Square GetSquare(Vector3 pos)

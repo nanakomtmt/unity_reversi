@@ -6,6 +6,16 @@ public class Square : MonoBehaviour
 {
     private int _x;
 
+    public float x
+    {
+        get { return _x; }
+    }
+
+    public float y
+    {
+        get { return _y; }
+    }
+
     private int _y;
     private float SQUARE_SIZE = 50f;
 
@@ -28,12 +38,16 @@ public class Square : MonoBehaviour
         _rectTransform = this.GetComponent<RectTransform>();
         _x = x;
         _y = y;
-        Debug.Log((xPosition, yPosition));
+
         this.transform.localPosition = new Vector3(xPosition, yPosition, 0);
         this.transform.SetParent(parent, true);
+        ResetBoard();
+    }
 
-        _black.SetActive(x == 3 && y == 3 || x == 4 && y == 4);
-        _white.SetActive(x == 3 && y == 4 || x == 4 && y == 3);
+    public void ResetBoard()
+    {
+        _black.SetActive(_x == 3 && _y == 3 || _x == 4 && _y == 4);
+        _white.SetActive(_x == 3 && _y == 4 || _x == 4 && _y == 3);
     }
 
     public bool HitTest(Vector3 pos)

@@ -14,6 +14,7 @@ public class GameScene : MonoBehaviour
 {
     SquareManager _squareManager;
     [SerializeField] GameObject board;
+    [SerializeField] private GameObject _canvas;
 
     [SerializeField] private Text _playerTurn;
     private String WHITE = "白";
@@ -61,8 +62,16 @@ public class GameScene : MonoBehaviour
         }
     }
 
-    public void OnClickResetButton()
+    public async void OnClickResetButton()
     {
-        _squareManager.Setup(board.transform);
+        await CommonDialog.Open(_canvas.transform, "リセット", "ゲームをリセットしてもいいですか?", ((result) =>
+        {
+            if (result == CommonDialog.Result.OK)
+            {
+                _playerTurn.text = WHITE;
+                _nowTurn = PLAYER_TURN.WHITE;
+                _squareManager.ResetBoard();
+            }
+        }), CommonDialog.Mode.OK_CANCEL);
     }
 }
