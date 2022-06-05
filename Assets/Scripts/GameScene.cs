@@ -38,7 +38,7 @@ public class GameScene : MonoBehaviour
         {
             var position = Input.mousePosition;
             Square square = _squareManager.GetSquare(position);
-            if (square != null)
+            if (square != null && square.IsNotAlreadyPut())
             {
                 //そもそもおけるとこか置けないところかの判定がいる
                 square.SetColor(_nowTurn);

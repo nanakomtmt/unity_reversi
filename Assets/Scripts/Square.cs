@@ -64,6 +64,17 @@ public class Square : MonoBehaviour
         return false;
     }
 
+    public bool IsNotAlreadyPut()
+    {
+        if (!this._black.activeSelf && !this._white.activeSelf)
+        {
+            return true;
+        }
+
+        return false;
+    }
+    
+
     public void SetColor(PLAYER_TURN turn)
     {
         _black.SetActive(turn == PLAYER_TURN.BLACK);
