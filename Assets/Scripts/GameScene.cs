@@ -4,11 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum PLAYER_TURN
-{
-    WHITE,
-    BLACK,
-}
 
 public class GameScene : MonoBehaviour
 {
@@ -16,10 +11,10 @@ public class GameScene : MonoBehaviour
     [SerializeField] GameObject board;
     [SerializeField] private GameObject _canvas;
 
-    [SerializeField] private Text _playerTurn;
+    [SerializeField] private Text _playerTurn, _whiteScore, _blackScore;
     private String WHITE = "白";
     private String BLACK = "黒";
-    private PLAYER_TURN _nowTurn;
+    private Const.PLAYER_TURN _nowTurn;
 
 
     // Start is called before the first frame update
@@ -28,7 +23,7 @@ public class GameScene : MonoBehaviour
         _squareManager = board.GetComponent<SquareManager>();
         _squareManager.Setup(board.transform);
         _playerTurn.text = WHITE;
-        _nowTurn = PLAYER_TURN.WHITE;
+        _nowTurn = Const.PLAYER_TURN.WHITE;
     }
 
     // Update is called once per frame
@@ -37,28 +32,55 @@ public class GameScene : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             var position = Input.mousePosition;
-            Square square = _squareManager.GetSquare(position);
-            if (square != null && square.IsNotAlreadyPut())
+            Square square = _squareManager.GetSquareFromPosition(position);
+            if (square != null)
             {
-                //そもそもおけるとこか置けないところかの判定がいる
-                square.SetColor(_nowTurn);
-
-                OnChangeTurn();
+                if (_squareManager.CanPutSquare(square, _nowTurn))
+                {
+                    //そもそもおけるとこか置けないところかの判定がいる
+                    square.SetColor(_nowTurn);
+                    OnChangeTurn();
+                    ChangeScoreBoard();
+                }
             }
+        }
+    }
+
+    async void ChangeScoreBoard()
+    {
+        var count = _squareManager.CountBlackAndWhite();
+        _blackScore.text = count[Const.COLOR.BLACK].ToString();
+        _whiteScore.text = count[Const.COLOR.WHITE].ToString();
+        if (count[Const.COLOR.BLACK] + count[Const.COLOR.WHITE] == 64)
+        {
+            var winner = "白";
+            if (count[Const.COLOR.BLACK] > count[Const.COLOR.WHITE])
+            {
+                winner = "黒";
+            }
+
+            var text = $"{winner}の勝ちです！！";
+
+            if (count[Const.COLOR.BLACK] == count[Const.COLOR.WHITE])
+            {
+                text = "引き分けです！";
+            }
+
+            await CommonDialog.Open(_canvas.transform, "結果", text, (result => { OnClickResetButton(); }));
         }
     }
 
     void OnChangeTurn()
     {
-        if (_nowTurn == PLAYER_TURN.WHITE)
+        if (_nowTurn == Const.PLAYER_TURN.WHITE)
         {
             _playerTurn.text = BLACK;
-            _nowTurn = PLAYER_TURN.BLACK;
+            _nowTurn = Const.PLAYER_TURN.BLACK;
         }
         else
         {
             _playerTurn.text = WHITE;
-            _nowTurn = PLAYER_TURN.WHITE;
+            _nowTurn = Const.PLAYER_TURN.WHITE;
         }
     }
 
@@ -69,8 +91,10 @@ public class GameScene : MonoBehaviour
             if (result == CommonDialog.Result.OK)
             {
                 _playerTurn.text = WHITE;
-                _nowTurn = PLAYER_TURN.WHITE;
+                _nowTurn = Const.PLAYER_TURN.WHITE;
                 _squareManager.ResetBoard();
+                _blackScore.text = "2";
+                _whiteScore.text = "2";
             }
         }), CommonDialog.Mode.OK_CANCEL);
     }

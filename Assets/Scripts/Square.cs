@@ -2,19 +2,48 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Square : MonoBehaviour
 {
     private int _x;
 
-    public float x
+    public int x
     {
         get { return _x; }
     }
 
-    public float y
+    public int y
     {
         get { return _y; }
     }
+
+
+    public Const.COLOR Color
+    {
+        get
+        {
+            if (_white.activeSelf)
+            {
+                return Const.COLOR.WHITE;
+            }
+            else
+            {
+                return Const.COLOR.BLACK;
+            }
+        }
+    }
+
+
+    public bool isWhite
+    {
+        get { return _white.activeSelf; }
+    }
+
+    public bool isBlack
+    {
+        get { return _black.activeSelf; }
+    }
+
 
     private int _y;
     private float SQUARE_SIZE = 50f;
@@ -64,20 +93,20 @@ public class Square : MonoBehaviour
         return false;
     }
 
-    public bool IsNotAlreadyPut()
+    public bool IsAlreadyPut()
     {
-        if (!this._black.activeSelf && !this._white.activeSelf)
+        if (this._black.activeSelf || this._white.activeSelf)
         {
             return true;
         }
 
         return false;
     }
-    
 
-    public void SetColor(PLAYER_TURN turn)
+
+    public void SetColor(Const.PLAYER_TURN turn)
     {
-        _black.SetActive(turn == PLAYER_TURN.BLACK);
-        _white.SetActive(turn == PLAYER_TURN.WHITE);
+        _black.SetActive(turn == Const.PLAYER_TURN.BLACK);
+        _white.SetActive(turn == Const.PLAYER_TURN.WHITE);
     }
 }

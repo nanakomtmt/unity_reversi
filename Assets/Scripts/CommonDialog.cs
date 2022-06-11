@@ -85,6 +85,6 @@ public class CommonDialog : DialogBaseListener
 
     public override bool OnClickBlocker()
     {
-        return false;
+        return true;
     }
 }
