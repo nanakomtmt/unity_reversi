@@ -98,4 +98,15 @@ public class GameScene : MonoBehaviour
             }
         }), CommonDialog.Mode.OK_CANCEL);
     }
+
+    public async void OnClickSkipButton()
+    {
+        await CommonDialog.Open(_canvas.transform, "スキップ", "次の人の番にスキップしてもいいですか?", ((result) =>
+        {
+            if (result == CommonDialog.Result.OK)
+            {
+                OnChangeTurn();
+            }
+        }), CommonDialog.Mode.OK_CANCEL);
+    }
 }
