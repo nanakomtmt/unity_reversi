@@ -53,10 +53,10 @@ public class GameScene : MonoBehaviour
         _whiteScore.text = count[Const.COLOR.WHITE].ToString();
         if (count[Const.COLOR.BLACK] + count[Const.COLOR.WHITE] == 64)
         {
-            var winner = "白";
+            var winner = WHITE;
             if (count[Const.COLOR.BLACK] > count[Const.COLOR.WHITE])
             {
-                winner = "黒";
+                winner = BLACK;
             }
 
             var text = $"{winner}の勝ちです！！";
@@ -101,6 +101,8 @@ public class GameScene : MonoBehaviour
 
     public async void OnClickSkipButton()
     {
+        
+        
         await CommonDialog.Open(_canvas.transform, "スキップ", "次の人の番にスキップしてもいいですか?", ((result) =>
         {
             if (result == CommonDialog.Result.OK)
@@ -110,3 +112,4 @@ public class GameScene : MonoBehaviour
         }), CommonDialog.Mode.OK_CANCEL);
     }
 }
+

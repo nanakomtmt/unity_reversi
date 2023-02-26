@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class SquareManager : MonoBehaviour
 {
-    private float SQUARE_SIZE = 50f;
+    private float SQUARE_SIZE = 70f;
     private List<Square> _squares = new List<Square>();
     private int SQUARE_NUMBERS = 8;
     List<Square> _diagonalSquares = new List<Square>();
