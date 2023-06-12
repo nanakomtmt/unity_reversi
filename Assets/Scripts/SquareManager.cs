@@ -7,8 +7,8 @@ public class SquareManager : MonoBehaviour
     private readonly List<Square> _changeColorList = new();
     private readonly List<Square> _diagonalSquares = new();
     private readonly List<Square> _squares = new();
-    private readonly int SQUARE_NUMBERS = 8;
-    private readonly float SQUARE_SIZE = 70f;
+
+
     private List<Square> _horizontalSquares = new();
     private List<Square> _verticalSquares = new();
 
@@ -24,16 +24,19 @@ public class SquareManager : MonoBehaviour
 
     public void Setup(Transform parentTransform)
     {
-        var xPosition = parentTransform.localPosition.x - 560 - 70 / 2;
-        var yPosition = parentTransform.localPosition.y + 280 - 70 / 2;
+        var boardSize = Const.SQUARE_SIZE * Const.SQUARE_NUMBERS;
+        var xPosition = parentTransform.localPosition.x - boardSize -
+                        Const.SQUARE_SIZE / 2;
+        var yPosition = parentTransform.localPosition.y + boardSize / 2 -
+                        Const.SQUARE_SIZE / 2;
 
-
-        for (var i = 0; i < SQUARE_NUMBERS; i++)
-        for (var j = 0; j < SQUARE_NUMBERS; j++)
+        for (var i = 0; i < Const.SQUARE_NUMBERS; i++)
+        for (var j = 0; j < Const.SQUARE_NUMBERS; j++)
         {
-            var xPos = xPosition - SQUARE_SIZE * j;
-            var yPos = yPosition - SQUARE_SIZE * i;
-            var go = Utils.InstantiatePrefab("Prefabs/Square", parentTransform);
+            var xPos = xPosition - Const.SQUARE_SIZE * j;
+            var yPos = yPosition - Const.SQUARE_SIZE * i;
+
+            var go = Utils.InstantiatePrefab(Const.SQUARE_PREFAB_PATH, parentTransform);
             var square = go.GetComponent<Square>();
             square.Setup(parentTransform, xPos, yPos, j, i);
             _squares.Add(square);
