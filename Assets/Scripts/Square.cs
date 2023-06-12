@@ -46,7 +46,7 @@ public class Square : MonoBehaviour
 
 
     private int _y;
-    private float SQUARE_SIZE = 50f;
+    private float SQUARE_SIZE = 70f;
 
     [SerializeField] private GameObject _black, _white;
 
@@ -81,12 +81,11 @@ public class Square : MonoBehaviour
 
     public bool HitTest(Vector3 pos)
     {
-        float hitRate = 1.0f;
         if (Mathf.Abs(pos.x - this.transform.position.x) <
-            SQUARE_SIZE * hitRate * _rectTransform.lossyScale.x)
+            SQUARE_SIZE / 2 * _rectTransform.lossyScale.x)
         {
             if (Mathf.Abs(pos.y - this.transform.position.y) <
-                SQUARE_SIZE * hitRate * _rectTransform.lossyScale.y)
+                SQUARE_SIZE / 2 * _rectTransform.lossyScale.y)
                 return true;
         }
 
