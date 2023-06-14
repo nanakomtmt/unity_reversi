@@ -1,12 +1,8 @@
+using System.Collections.Generic;
+
 public class Const
 {
-    public enum COLOR
-    {
-        WHITE,
-        BLACK
-    }
-
-    public enum PLAYER_TURN
+    public enum PLAYER
     {
         WHITE,
         BLACK
@@ -16,4 +12,10 @@ public class Const
 
     public static readonly float SQUARE_SIZE = 70;
     public static string SQUARE_PREFAB_PATH = "Prefabs/Square";
+
+    public Dictionary<PLAYER, string> PLAYER_TURN_STR = new()
+    {
+        { PLAYER.WHITE, "白" },
+        { PLAYER.BLACK, "黒" }
+    };
 }

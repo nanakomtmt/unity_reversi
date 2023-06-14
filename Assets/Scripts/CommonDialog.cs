@@ -15,6 +15,7 @@ public class CommonDialog : DialogBaseListener
         OK_CANCEL
     }
 
+    
     public string text
     {
         set { _text.text = value; }

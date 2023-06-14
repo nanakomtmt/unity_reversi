@@ -1180,6 +1180,7 @@ MonoBehaviour:
   _playerTurn: {fileID: 1632407039}
   _whiteScore: {fileID: 914991507}
   _blackScore: {fileID: 517567189}
+  _squareManager: {fileID: 2026952330}
 --- !u!1 &1602276822
 GameObject:
   m_ObjectHideFlags: 0
