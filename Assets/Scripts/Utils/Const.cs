@@ -13,7 +13,7 @@ public class Const
     public static readonly float SQUARE_SIZE = 70;
     public static string SQUARE_PREFAB_PATH = "Prefabs/Square";
 
-    public Dictionary<PLAYER, string> PLAYER_TURN_STR = new()
+    public static Dictionary<PLAYER, string> PLAYER_TURN_STR = new()
     {
         { PLAYER.WHITE, "白" },
         { PLAYER.BLACK, "黒" }

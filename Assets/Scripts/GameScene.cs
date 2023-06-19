@@ -8,16 +8,13 @@ public class GameScene : MonoBehaviour
 
     [SerializeField] private Text _playerTurn, _whiteScore, _blackScore;
     [SerializeField] private SquareManager _squareManager;
-    private readonly string BLACK = "黒";
-    private readonly string WHITE = "白";
     private Const.PLAYER _nowTurn = Const.PLAYER.WHITE;
 
 
     // Start is called before the first frame update
     private void Start()
     {
-        _playerTurn.text = WHITE;
-
+        _playerTurn.text = Const.PLAYER_TURN_STR[Const.PLAYER.WHITE];
         _squareManager.Setup(board.transform, _nowTurn);
         // _squareManager.OnChangeTurn(_nowTurn);
     }
@@ -50,10 +47,10 @@ public class GameScene : MonoBehaviour
         _whiteScore.text = count[Const.PLAYER.WHITE].ToString();
         if (count[Const.PLAYER.BLACK] + count[Const.PLAYER.WHITE] == Const.SQUARE_NUMBERS * Const.SQUARE_NUMBERS)
         {
-            var winner = WHITE;
-            if (count[Const.PLAYER.BLACK] > count[Const.PLAYER.WHITE]) winner = BLACK;
+            var winner = Const.PLAYER.WHITE;
+            if (count[Const.PLAYER.BLACK] > count[Const.PLAYER.WHITE]) winner = Const.PLAYER.BLACK;
 
-            var text = $"{winner}の勝ちです！！";
+            var text = $"{Const.PLAYER_TURN_STR[winner]}の勝ちです！！";
 
             if (count[Const.PLAYER.BLACK] == count[Const.PLAYER.WHITE]) text = "引き分けです！";
 
@@ -65,12 +62,12 @@ public class GameScene : MonoBehaviour
     {
         if (_nowTurn == Const.PLAYER.WHITE)
         {
-            _playerTurn.text = BLACK;
+            _playerTurn.text = Const.PLAYER_TURN_STR[Const.PLAYER.BLACK];
             _nowTurn = Const.PLAYER.BLACK;
         }
         else
         {
-            _playerTurn.text = WHITE;
+            _playerTurn.text = Const.PLAYER_TURN_STR[Const.PLAYER.WHITE];
             _nowTurn = Const.PLAYER.WHITE;
         }
     }
@@ -81,7 +78,7 @@ public class GameScene : MonoBehaviour
         {
             if (result == CommonDialog.Result.OK)
             {
-                _playerTurn.text = WHITE;
+                _playerTurn.text = Const.PLAYER_TURN_STR[Const.PLAYER.WHITE];
                 _nowTurn = Const.PLAYER.WHITE;
                 _squareManager.ResetBoard();
                 _blackScore.text = "2";

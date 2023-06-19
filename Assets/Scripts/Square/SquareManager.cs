@@ -140,7 +140,6 @@ public class SquareManager : MonoBehaviour
         foreach (var square in _squares)
         {
             if (square.isWhite) count[Const.PLAYER.WHITE]++;
-
             if (square.isBlack) count[Const.PLAYER.BLACK]++;
         }
 

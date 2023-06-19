@@ -48,8 +48,10 @@ public class Square : MonoBehaviour
 
     public void ResetBoard()
     {
-        _black.SetActive((x == 3 && y == 3) || (x == 4 && y == 4));
-        _white.SetActive((x == 3 && y == 4) || (x == 4 && y == 3));
+        var medianMax = Const.SQUARE_NUMBERS / 2;
+        var medianMin = medianMax - 1;
+        _black.SetActive((x == medianMin && y == medianMin) || (x == medianMax && y == medianMax));
+        _white.SetActive((x == medianMin && y == medianMax) || (x == medianMax && y == medianMin));
     }
 
     public bool HitTest(Vector3 pos)
@@ -66,7 +68,6 @@ public class Square : MonoBehaviour
     public bool IsAlreadyPut()
     {
         if (_black.activeSelf || _white.activeSelf) return true;
-
         return false;
     }
 
